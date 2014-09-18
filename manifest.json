@@ -1,0 +1,32 @@
+{
+	"manifest_version": 2,
+
+	"name": "Excess",
+	"description": "Syncable custom stylesheets",
+	"version": "0.1",
+
+	"options_page": "options.html",
+
+	"background": {
+		"scripts": ["background.js"],
+		"persistent": false
+	},
+
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["inject.js"],
+			"run_at": "document_start",
+			"all_frames": true
+		}
+	],
+
+	"oauth2": {
+		"client_id": "275498240322-7b4m3f8rtq7k1fe813k64dmr5j0fti5p.apps.googleusercontent.com",
+		"scopes": [
+			"https://www.googleapis.com/auth/drive"
+		]
+	},
+
+	"permissions": ["tabs", "storage", "identity"]
+}

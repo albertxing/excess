@@ -1,0 +1,80 @@
+body {
+	margin: 2em;
+}
+
+section {
+	margin: 2em 0;
+}
+
+[contenteditable] {
+	border-bottom: 1px solid transparent;
+}
+[contenteditable]:hover {
+	border-bottom: 1px dotted #ddd;
+}
+[contenteditable]:focus {
+	outline: none;
+	border-bottom: 1px dotted;
+}
+
+h1 {
+	font-weight: normal;
+	font-size: 1.5em;
+	color: #444;
+}
+h1.title {
+	margin-top: 0;
+}
+
+h2 {
+	font-size: 1em;
+	color: #aaa;
+	text-transform: uppercase;
+}
+
+.link:hover {
+	color: #888;
+	cursor: pointer;
+}
+
+.side {
+	width: 120pt;
+	float: left;
+}
+
+.styles ul {
+	list-style: none;
+	padding: 0;
+	font-size: 1.2em;
+}
+.styles ul li {
+	margin: .5em 0;
+}
+
+.main {
+	width: calc(100% - 120pt);
+	float: right;
+	display: none;
+}
+.main .options {
+	width: 120pt;
+	float: left;
+	margin-right: 2em;
+}
+.main .code {
+	width: calc(100% - 120pt - 2em);
+	height: calc(100vh - 4em);
+	float: right;
+}
+
+.options .title.dirty:after {
+	content: '*';
+}
+
+.actions div {
+	margin-bottom: .4em;
+}
+
+.rules pre {
+	font-size: 8pt;
+}

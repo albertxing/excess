@@ -11,6 +11,8 @@ chrome.storage.local.get('folder', function (data) {
 var editor = ace.edit('editor');
 editor.getSession().setMode("ace/mode/css");
 editor.setShowPrintMargin(false);
+editor.setFadeFoldWidgets(true);
+editor.session.setOption("useWorker", false);
 
 var state = null;
 
@@ -42,6 +44,7 @@ function list (files) {
 		li.classList.add('link');
 		li.innerHTML = file.description;
 		li.file = file;
+		li.classList.add(file.description.replace(/\s/, '_'));
 		li.onclick = function () {
 			load(this.file);
 		};
@@ -49,10 +52,22 @@ function list (files) {
 	}
 }
 
+function load (file) {
+	title.innerHTML = file.description;
+	rules.innerHTML = file.properties.filter(function (p) {
+		return p.key == 'match';
+	})[0].value;
+	main.style.display = 'initial';
+	editor.setValue(file.raw.trim(), -1);
+	editor.blur();
+	state = file;
+}
+
 newl.onclick = function () {
 	title.innerHTML = 'New Style';
 	title.classList.add('dirty');
 	main.style.display = 'initial';
+	editor.setValue('');
 
 	state = null;
 }
@@ -79,7 +94,6 @@ save.onclick = function () {
 			};
 			var metastring = JSON.stringify(metadata);
 
-			// var formreq = '--excess\nContent-Type: application/x-www-form-urlencoded\n\nuploadType=multipart';
 			var metareq = '--excess\nContent-Type: application/json\n\n' + metastring;
 			var cssreq = '\n\n--excess\nContent-Type: text/css\n\n' + css;
 			var end = '\n\n--excess--';
@@ -115,7 +129,6 @@ save.onclick = function () {
 			};
 			var metastring = JSON.stringify(metadata);
 
-			// var formreq = '--excess\nContent-Type: application/x-www-form-urlencoded\n\nuploadType=multipart';
 			var metareq = '--excess\nContent-Type: application/json\n\n' + metastring;
 			var cssreq = '\n\n--excess\nContent-Type: text/css\n\n' + css;
 			var end = '\n\n--excess--';
@@ -144,14 +157,34 @@ save.onclick = function () {
 	title.classList.remove('dirty');
 }
 
-function load (file) {
-	title.innerHTML = file.description;
-	rules.innerHTML = file.properties.filter(function (p) {
-		return p.key == 'match';
-	})[0].value;
-	main.style.display = 'initial';
-	editor.setValue(file.raw.trim());
-	state = file;
+remove.onclick = function () {
+	main.style.display = 'none';
+
+	if (!state) return;
+
+	document.querySelector('.' + state.description.replace(/\s/, '_')).remove();
+
+	chrome.storage.local.get('files', function (data) {
+		delete data.files[state.id];
+		chrome.storage.local.set({files: data.files});
+	});
+
+	chrome.identity.getAuthToken({interactive: true}, function (token) {
+		var xhr = new XMLHttpRequest();
+		xhr.open('PUT', 'https://www.googleapis.com/drive/v2/files/' + state.id);
+		xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+		xhr.setRequestHeader('Content-Type', 'application/json');
+
+		xhr.onload = function () {
+			port.postMessage('update');
+		}
+
+		xhr.send(JSON.stringify({labels: {trashed: true}}));
+	});
+}
+
+window.onunload = function () {
+	port.disconnect();
 }
 
 update();

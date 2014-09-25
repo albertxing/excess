@@ -5,7 +5,6 @@ var apiUrl = 'https://www.googleapis.com/drive/v2/';
 
 function installed (details) {
 	if (details.reason == 'install') {
-		console.log('install');
 		chrome.storage.local.set({
 			'files': {}
 		});

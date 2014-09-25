@@ -79,6 +79,8 @@ save.onclick = function () {
 		li.innerHTML = title.textContent;
 		styles.appendChild(li);
 
+		save.setAttribute('disabled', true);
+
 		chrome.identity.getAuthToken({interactive: true}, function (token) {
 			var css = editor.getValue();
 			var metadata = {
@@ -110,12 +112,16 @@ save.onclick = function () {
 			xhr.onload = function () {
 				var file = JSON.parse(xhr.responseText);
 				file.raw = css;
+				state = file;
 				chrome.runtime.sendMessage('update');
+				save.setAttribute('disabled', false);
 			};
 
 			xhr.send(req);
 		});
 	} else {
+		var li = document.querySelector('.' + state.description.replace(/\s/, '_'));
+		li.textContent = title.textContent;
 		chrome.identity.getAuthToken({interactive: true}, function (token) {
 			var css = editor.getValue().trim();
 			var metadata = {

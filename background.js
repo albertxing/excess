@@ -5,6 +5,7 @@ var apiUrl = 'https://www.googleapis.com/drive/v2/';
 
 function installed (details) {
 	if (details.reason == 'install') {
+		console.log('install');
 		chrome.storage.local.set({
 			'files': {}
 		});
@@ -63,34 +64,33 @@ function update (callback) {
 						delete local[id];
 					});
 
-					var incoming = 0;
-					files.items.forEach(function (item) {
-						if (!local[item.id] || local[item.id].version != item.version) {
-							incoming++;
+					var incoming = files.items.filter(function (item ) {
+						return !local[item.id] || local[item.id].version != item.version;
+					});
 
-							dxhr = new XMLHttpRequest();
+					if (incoming.length == 0) {
+						chrome.storage.local.set({files: local});
+						if (callback) callback(local);
+					} else {
+						var num = incoming.length;
+						incoming.forEach(function (item) {
+							var dxhr = new XMLHttpRequest();
 							dxhr.open('GET', item.downloadUrl);
 							dxhr.setRequestHeader('Authorization', 'Bearer ' + token);
 							dxhr.onload = function () {
 								var raw = dxhr.responseText;
 								item.raw = raw.trim();
 
-								incoming--;
-								if (incoming == 0) {
+								num--;
+								if (num == 0) {
 									chrome.storage.local.set({files: local});
-
 									if (callback) callback(local);
 								}
-							}
+							};
 
 							dxhr.send();
 							local[item.id] = item;
-						}
-					});
-
-					if (incoming == 0) {
-						chrome.storage.local.set({files: local});
-						if (callback) callback(local);
+						});
 					}
 				});
 			}

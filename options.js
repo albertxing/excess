@@ -65,6 +65,7 @@ function load (file) {
 
 newl.onclick = function () {
 	title.innerHTML = 'New Style';
+	rules.innerHTML = '.*';
 	title.classList.add('dirty');
 	main.style.display = 'initial';
 	editor.setValue('');

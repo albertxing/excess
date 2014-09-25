@@ -9,7 +9,6 @@ chrome.storage.local.get('files', function (result) {
 		})[0].value);
 
 		if (reg.test(loc)) {
-			console.log(file);
 			var css = file.raw;
 			var style = document.createElement('style');
 			style.classList.add('excess');

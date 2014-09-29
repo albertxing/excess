@@ -18,11 +18,17 @@ var state = null;
 
 var newl = document.querySelector('.new');
 var styles = document.querySelector('.styles ul');
-var main = document.querySelector('.main');
+var upd = document.querySelector('.update');
+var opt = document.querySelector('.settings');
+var abt = document.querySelector('.about');
+var edit = document.querySelector('#edit');
 var title = document.querySelector('.options .title');
 var rules = document.querySelector('.rules pre')
 var save = document.querySelector('.options .save');
 var remove = document.querySelector('.options .remove');
+var beautify = document.querySelector('.options .beautify');
+var options = document.querySelector('#options');
+var about = document.querySelector('#about');
 
 function update (local) {
 	var files = local;
@@ -57,9 +63,12 @@ function load (file) {
 	rules.innerHTML = file.properties.filter(function (p) {
 		return p.key == 'match';
 	})[0].value;
-	main.style.display = 'initial';
+	edit.style.display = 'initial';
+	options.style.display = 'none';
+	about.style.display = 'none';
 	editor.setValue(file.raw.trim(), -1);
 	editor.blur();
+	title.classList.remove('dirty');
 	state = file;
 }
 
@@ -67,7 +76,7 @@ newl.onclick = function () {
 	title.innerHTML = 'New Style';
 	rules.innerHTML = '.*';
 	title.classList.add('dirty');
-	main.style.display = 'initial';
+	edit.style.display = 'initial';
 	editor.setValue('');
 
 	state = null;
@@ -165,7 +174,7 @@ save.onclick = function () {
 }
 
 remove.onclick = function () {
-	main.style.display = 'none';
+	edit.style.display = 'none';
 
 	if (!state) return;
 
@@ -188,6 +197,36 @@ remove.onclick = function () {
 
 		xhr.send(JSON.stringify({labels: {trashed: true}}));
 	});
+}
+
+beautify.onclick = function () {
+	editor.setValue(cssbeautify(editor.getValue(), {
+		autosemicolon: true
+	}), -1);
+}
+
+upd.onclick = function () {
+	port.postMessage('update');
+}
+
+opt.onclick = function () {
+	edit.style.display = 'none';
+	about.style.display = 'none';
+	options.style.display = 'initial';
+}
+
+abt.onclick = function () {
+	edit.style.display = 'none';
+	options.style.display = 'none';
+	about.style.display = 'initial';
+}
+
+editor.on('change', function () {
+	title.classList.add('dirty');
+});
+
+title.onchange = function () {
+	title.classList.add('dirty');
 }
 
 window.onunload = function () {

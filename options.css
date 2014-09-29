@@ -43,16 +43,33 @@ h2 {
 
 .side {
 	width: 120pt;
+	height: calc(100vh - 4em);
 	float: left;
+	position: relative;
 }
 
 .styles ul {
 	list-style: none;
 	padding: 0;
 	font-size: 1.2em;
+	margin-top: 0;
 }
 .styles ul li {
-	margin: .5em 0;
+	padding: .25em 0;
+}
+
+.lower {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	margin-bottom: 0;
+}
+.lower div:not(:last-child) {
+	padding: 1em 0;
+	width: 100%;
+}
+.lower .settings {
+	display: none;
 }
 
 .main {
@@ -60,12 +77,13 @@ h2 {
 	float: right;
 	display: none;
 }
-.main .options {
+
+#edit .options {
 	width: 120pt;
 	float: left;
 	margin-right: 2em;
 }
-.main .code {
+#edit .code {
 	width: calc(100% - 120pt - 2em);
 	height: calc(100vh - 4em);
 	float: right;
@@ -75,8 +93,11 @@ h2 {
 	content: '*';
 }
 
+.actions {
+	margin: 1em 0 .5em;
+}
 .actions div {
-	margin-bottom: .4em;
+	padding: .5em 0;
 }
 
 .rules pre {

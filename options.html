@@ -15,13 +15,25 @@
 				<ul>
 				</ul>
 			</section>
+			<section class="lower">
+				<div class="update link">
+					Update
+				</div>
+				<div class="settings link">
+					Options
+				</div>
+				<div class="about link">
+					About
+				</div>
+			</section>
 		</div>
-		<div class="main">
+		<div class="main" id="edit">
 			<div class="options">
 				<h1 class="title" contenteditable spellcheck="false">Gmail</h1>
 				<section class="actions">
 					<div class="save link">Save</div>
 					<div class="remove link">Remove</div>
+					<div class="beautify link">Beautify</div>
 				</section>
 				<section class="rules">
 					<h2>Apply to</h2>
@@ -30,7 +42,20 @@
 			</div>
 			<div class="code" id="editor"></div>
 		</div>
+		<div class="main" id="options">
+		<!-- Not in use -->
+		</div>
+		<div class="main" id="about">
+			<div class="made">Made by <a href="https://albertxing.github.io" target="blank">Albert Xing</a>.</div>
+			<p>Contribute to this project on <a href="https://github.com/albertxing/excess">GitHub</a>.</p>
+			<p class="credits">
+			Editor is <a href="http://ace.c9.io" target="blank">Ace</a>.
+			<br>
+			Beautifier is <a href="http://cssbeautify.com/">CSS Beautify</a>.
+			</p>
+		</div>
 		<script src="ace/ace.js"></script>
 		<script src="options.js"></script>
+		<script src="beautify.js"></script>
 	</body>
 </html>

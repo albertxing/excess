@@ -3,9 +3,13 @@
 
 	"name": "Excess",
 	"description": "Syncable custom stylesheets",
-	"version": "0.1",
+	"version": "1.0",
 
-	"key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzXEV9+YuzVW+Sb1mgesTi17EuLh0vJStSzTY0OzsWzbNd4UwY6cBWZFKCZlalUGsTZe+9s3W9pn5Bl8bDmpsbPmNNCyPK5O83XSu1W8fad0QvUjELoNvf6opK045iQXpHkty4kqGyUH4xesuz6fcuzNDYOJoiAxx96/yFVCtBPMsXQ+VdlAn9sgM8+gx5huhnkxS+csFINGJ7Fctke+iAT+Ror6UFe1yt23eyz0Ev589qxkT2tz68CXSNAsImrv7b+b2R0/5dP2+vd0uoTb16jInAYCT3QedE9jSXh5JXuNpwP6V4HtxHLZOmSaczy68ox1fYZNZxZbGzTR3H3MZjwIDAQAB",
+	"icons": {
+		"16": "icon-16.png",
+		"48": "icon-48.png",
+		"128": "icon-128.png"
+	},
 
 	"options_page": "options.html",
 

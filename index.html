@@ -5,14 +5,17 @@
 	</head>
 	<body>
 		<header>
+			<h1>Excess</h1>
+			<h2>Syncable stylesheets for Chrome</h2>
 			<div class="demo">
-				<img src="http://placehold.it/800x600" alt="">
+				<canvas id="anim_target" class="anim_target" width="798" height="527">
+					<div id="anim_fallback" class="anim_target"></div>
+				</canvas>
+				<img id="anim_frame" src="images/w.png">
 			</div>
-			<div class="center">
-				<h1>Excess</h1>
-				<h2>Syncable stylesheets<br>for Chrome</h2>
-				<div class="action"><a href="#">Download</a><span class="space">&ndash;</span><a href="https://github.com/albertxing/excess">Contribute</a></div>
-			</div>
+			<div class="action"><a href="#">Download</a><span class="space">&ndash;</span><a href="https://github.com/albertxing/excess">Contribute</a></div>
 		</header>
+		<script src="js/data.js"></script>
+		<script src="js/anim.js"></script>
 	</body>
 </html>

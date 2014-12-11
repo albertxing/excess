@@ -1,39 +1,41 @@
 body {
-	font: 12pt/16pt 'Segoe UI', Tahoma, sans-serif;
+	font: 12pt / 16pt "Helvetica Neue", "Arial", sans-serif;
+	margin: 0;
 }
 
+header {
+	width: 800px;
+	max-width: 80%;
+	margin: 3em auto;
+	position: relative;
+}
 header h1 {
-	font-size: 32pt;
-	line-height: 32pt;
-	font-weight: 300;
+	font-size: 12pt;
+	font-weight: bold;
 	float: left;
-	margin: 0 0 12pt 0;
+	margin: 0;
 }
 header h2 {
 	font-size: 12pt;
 	font-weight: normal;
-	float: left;
-	margin: 0 0 0 1em;
+	float: right;
+	margin: 0;
 }
 
 div.demo {
+	position: relative;
+	clear: both;
+	left: -56px;
+}
+div.demo img {
+	position: relative;
+}
+div.demo canvas {
 	position: absolute;
-	top: calc(50vh - 300px);
-	right: calc(50vw + 64pt);
+	top: 104px;
+	left: 56px;
 }
 
-div.center {
-	position: absolute;
-	height: 50vh;
-	width: 50vw;
-	top: calc(50vh - 64pt);
-	left: 50vw;
-}
-div.action {
-	clear: both;
-	position: absolute;
-	bottom: 0;
-}
 div.action a {
 	text-decoration: none;
 	color: #444;

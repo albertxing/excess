@@ -34,5 +34,5 @@
 		]
 	},
 
-	"permissions": ["tabs", "storage", "identity"]
+	"permissions": ["storage", "identity"]
 }
